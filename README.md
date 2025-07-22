@@ -1,6 +1,4 @@
 
-
-````markdown
 # 🏨 Backend - Gestion des Réservations et Room Service (Spring Boot + MongoDB)
 
 Ce projet backend est développé avec **Spring Boot** et **MongoDB** pour gérer les réservations de chambres, les commandes de room service et la gestion des clients et employés d’un hôtel.
@@ -140,7 +138,7 @@ private String role; // Réceptionniste, Service, Nettoyage...
 
 ### Pré-requis
 
-* Java 17
+* Java 17 ou supérieur
 * MongoDB en local (`mongodb://localhost:27017`)
 * Maven
 
@@ -152,6 +150,8 @@ cd projet-hotel-backend
 mvn clean install
 mvn spring-boot:run
 ```
+
+L'application sera accessible sur `http://localhost:8080`
 
 ---
 
@@ -189,29 +189,97 @@ src/
 
 ## 🔐 Sécurité (optionnelle)
 
-Tu peux intégrer Spring Security avec JWT pour protéger les endpoints réservés aux employés.
+Il est possible d’intégrer Spring Security avec JWT pour sécuriser les endpoints sensibles (gestion des employés, réservations, commandes).
+
+---
+
+## 📝 Mode d'emploi
+
+### 1. Configuration MongoDB
+
+Assure-toi que MongoDB est installé et lancé sur ta machine.
+
+* Pour démarrer MongoDB sous Windows, ouvre PowerShell et lance :
+
+```powershell
+"C:\Program Files\MongoDB\Server\7.0\bin\mongod.exe"
+```
+
+* Sous Linux/macOS, lance :
+
+```bash
+mongod
+```
+
+### 2. Modifier la configuration
+
+Dans le fichier `src/main/resources/application.properties`, ajuste les paramètres si besoin :
+
+```properties
+spring.data.mongodb.uri=mongodb://localhost:27017/hotelDB
+server.port=8080
+```
+
+### 3. Démarrer le serveur backend
+
+Dans le terminal, à la racine du projet :
+
+```bash
+mvn spring-boot:run
+```
+
+### 4. Tester l'API
+
+* Utilise un outil comme [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/) pour envoyer des requêtes HTTP.
+
+* Exemple : pour récupérer tous les clients
+
+```http
+GET http://localhost:8080/clients
+```
+
+* Pour créer une réservation :
+
+```http
+POST http://localhost:8080/reservations
+Content-Type: application/json
+
+{
+  "idClient": "123",
+  "idChambre": "ch01",
+  "dateDebut": "2025-07-23",
+  "dateFin": "2025-07-26",
+  "statut": "Confirmée"
+}
+```
+
+### 5. Intégration frontend
+
+* Connecte ton frontend Angular aux endpoints exposés à `http://localhost:8080`.
+
+* Pense à activer le CORS côté backend si besoin.
 
 ---
 
 ## 📌 Auteur
 
 * **Junior Moneze**
-* Projet personnel dans le cadre de l’apprentissage de Spring Boot + MongoDB
+* Projet personnel – Apprentissage Spring Boot & MongoDB
 
 ---
 
 ## 📃 Licence
 
-Ce projet est open-source sous licence MIT.
+Ce projet est sous licence MIT.
 
 ---
 
 ## 📎 Liens utiles
 
 * [Documentation Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/)
-* [MongoDB Compass (GUI)](https://www.mongodb.com/products/compass)
-* [Postman pour tester l’API](https://www.postman.com/)
+* [MongoDB Documentation](https://docs.mongodb.com/)
+* [Postman](https://www.postman.com/)
+* [Angular](https://angular.io/)
 
-```
-
+---
 
